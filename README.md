@@ -56,22 +56,51 @@ Title: Log something only once (or only N times)
 
 URL: https://github.com/Delgan/loguru/issues/383
 
-Summary in one or two sentences
+This issue was requested from a user who wanted to log something precisely 1 time.
+Their suggestion included adding a optional parameter to the existing `opt` function.
+At the moment, there is no support for this in `loguru`, and the user must implement a helper function of their own.
+To generalize this, there should be support for a given rate limit.
+For example, the developer does not want to log more than 100 logs per minute. 
+By implementing `limit(100, 1, overflow_msg)`, the logger will supress any output after the 100th log within that minute. 
+There seems to be several ways and workarounds to solve this.
 
-Scope (functionality and code affected).
+**Scope (functionality and code affected):**
 The issue is labled with the `feature` tag.
+The changes are mainly in the `loguru/loguru/_logger.py/Logger` class.
 
 ## Requirements for the new feature or requirements affected by functionality being refactored
+
+1. Given a number of logs (a `frequency_limit`), and given a `time_limit`, no more than `frequency_limit` logs should be logged within a period of `time_limit`.
+
+**TODO: add more requirements?** 
 
 Optional (point 3): trace tests to requirements.
 
 ## Code changes
 
 ### Patch
+**[Approach #1](https://github.com/Glace97/loguru/tree/1-implement-limit-first-approach)**
 
-(copy your changes or the add git command to show them)
+**Approach #1**: allows the user to give a frquency limit, a time limit, and an optional overflow message.
+The `limit()` function returns a new Logger object which will reset its period given the time limit. If the maximum number of logs have been logged within the timelimit, an optional overflow message is printed and that specific log is surpressed. 
 
-git diff ...
+This new function, allows the user to define in their own source code, what specific logs they would like to limit. An example inspired from the issue:
+```
+io_logger = logger.limit(100, 60, overflow_msg='Suppressing future io errors')
+def decrypt_chars(data):
+    for offset, c in enumerate(data):
+        if cannot_decrypt(c):
+            io_logger.warning('Could not decrypt byte {} at offset {}', hex(c), offset)
+            continue
+        d = decrypt(c)
+        if is_invalid_char(d):
+            io_logger.warning('Invalid character {!r} at offset {}', d, offset)
+        yield d
+```
+If there are 100 loop within 60 minutes, at the 100th log, the io_logger would also print "Suppressing future io errors" and stop logging until a new time period is set, and the object is still alive.
+
+
+
 
 Optional (point 4): the patch is clean.
 

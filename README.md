@@ -1,27 +1,35 @@
 # Report for assignment 4
 
-This is a template for your report. You are free to modify it as needed.
+(This is a template for your report. You are free to modify it as needed.
 It is not required to use markdown for your report either, but the report
-has to be delivered in a standard, cross-platform format.
+has to be delivered in a standard, cross-platform format.)
 
 ## Project
 
-Name:
+Name: Loguru
 
-URL:
+URL: https://github.com/Delgan/loguru
 
-One or two sentences describing it
+A logger library for Python3.
 
 ## Onboarding experience
 
-Did you choose a new project or continue on the previous one?
+We chose a new project, since our previous library was a loosly coupled
+algorithms and data structure collection.
 
-If you changed the project, how did your experience differ from before?
+**If you changed the project, how did your experience differ from before?**
+This project is more difficult and not as modular as our previous project.
+It is fairly small in comparison to other open source projects, with 12LOC.
+One advantage of the project was the fact that it is not rapidly updated/have high engagement, which lessens the risk of someone else working on our issue.
+The documentation is fairly clear.
+
+TODO: Fill out when project is finished
 
 ## Effort spent
 
 For each team member, how much time was spent in
-
+TODO: Fill out according to Google Docs file
+    https://docs.google.com/document/d/1Jh7mRReLor8AUTQBKFd_LSFhRkREkOgaCRUXBXBbviA/edit
 1. plenary discussions/meetings;
 
 2. discussions within parts of the group;
@@ -44,13 +52,14 @@ you took care of and where you spent your time, if that time exceeds
 
 ## Overview of issue(s) and work done.
 
-Title:
+Title: Log something only once (or only N times)
 
-URL:
+URL: https://github.com/Delgan/loguru/issues/383
 
 Summary in one or two sentences
 
 Scope (functionality and code affected).
+The issue is labled with the `feature` tag.
 
 ## Requirements for the new feature or requirements affected by functionality being refactored
 

@@ -1,0 +1,223 @@
+.pkg: _optional_hooks> python /home/glacier/repos/loguru/venv/lib/python3.9/site-packages/pyproject_api/_backend.py True setuptools.build_meta __legacy__
+.pkg: get_requires_for_build_sdist> python /home/glacier/repos/loguru/venv/lib/python3.9/site-packages/pyproject_api/_backend.py True setuptools.build_meta __legacy__
+.pkg: prepare_metadata_for_build_wheel> python /home/glacier/repos/loguru/venv/lib/python3.9/site-packages/pyproject_api/_backend.py True setuptools.build_meta __legacy__
+.pkg: build_sdist> python /home/glacier/repos/loguru/venv/lib/python3.9/site-packages/pyproject_api/_backend.py True setuptools.build_meta __legacy__
+lint: install_package> python -I -m pip install --force-reinstall --no-deps /home/glacier/repos/loguru/.tox/.tmp/package/23/loguru-0.6.0.tar.gz
+lint: commands[0]> pre-commit run --show-diff-on-failure --all-files
+fix end of files.........................................................Passed
+trim trailing whitespace.................................................Passed
+check for added large files..............................................Passed
+Pretty format INI........................................................Passed
+Pretty format YAML.......................................................Passed
+isort....................................................................Passed
+black....................................................................Passed
+flake8...................................................................Failed
+- hook id: flake8
+- exit code: 1
+
+loguru/_logger.py:1398:101: E501 line too long (101 > 100 characters)
+loguru/_logger.py:1398:101: W505 doc line too long (101 > 100 characters)
+loguru/_logger.py:1450:101: E501 line too long (123 > 100 characters)
+loguru/_logger.py:1450:101: W505 doc line too long (123 > 100 characters)
+loguru/_logger.py:1992:101: E501 line too long (110 > 100 characters)
+loguru/_logger.py:1992:101: W505 doc line too long (110 > 100 characters)
+loguru/_logger.py:1993:101: E501 line too long (110 > 100 characters)
+loguru/_logger.py:1993:101: W505 doc line too long (110 > 100 characters)
+tests/test_limit.py:21:6: N802 function name 'test_limit_log_N_times' should be lowercase
+
+pre-commit hook(s) made changes.
+If you are seeing this message in CI, reproduce locally with: `pre-commit run --all-files`.
+To run `pre-commit` as part of git workflow, use `pre-commit install`.
+All changes made by hooks:
+diff --git a/loguru/_logger.py b/loguru/_logger.py
+index ef5af3c..472ef09 100644
+--- a/loguru/_logger.py
++++ b/loguru/_logger.py
+@@ -1444,7 +1444,7 @@ class Logger:
+             "frequency_limit": frequency_limit,
+             "overflow_msg": overflow_msg,
+             "frequency": 0,
+-            "timestamps": [None] * frequency_limit
++            "timestamps": [None] * frequency_limit,
+         }
+
+         # Return a new Logger object, this allows the returned logger to be used for limiting the logging of specific logs.
+diff --git a/tests/test_limit.py b/tests/test_limit.py
+index a91b8dc..5b38fc4 100644
+--- a/tests/test_limit.py
++++ b/tests/test_limit.py
+@@ -1,13 +1,12 @@
+ from time import sleep
++
+ from loguru import logger
+
+
+ def test_limit_log_once(writer):
+     overflow_msg = "overflow test"
+     logger.add(writer, format="{message}")
+-    limit_logger = logger.limit(
+-        frequency_limit=1, time_limit=1, overflow_msg=overflow_msg
+-    )
++    limit_logger = logger.limit(frequency_limit=1, time_limit=1, overflow_msg=overflow_msg)
+
+     for _ in range(5):
+         limit_logger.debug("test")
+@@ -25,9 +24,7 @@ def test_limit_log_N_times(writer):
+     n = 10
+     overflow_msg = "overflow test"
+     logger.add(writer, format="{message}")
+-    limit_logger = logger.limit(
+-        frequency_limit=n, time_limit=1, overflow_msg=overflow_msg
+-    )
++    limit_logger = logger.limit(frequency_limit=n, time_limit=1, overflow_msg=overflow_msg)
+
+     for _ in range(2 * n):
+         limit_logger.info("test")
+@@ -45,9 +42,7 @@ def test_limit_timestamps_not_full(writer):
+     time_limit = 1 / 6000  # minutes
+     overflow_msg = "overflow test"
+     logger.add(writer, format="{message}")
+-    limit_logger = logger.limit(
+-        frequency_limit=n, time_limit=time_limit, overflow_msg=overflow_msg
+-    )
++    limit_logger = logger.limit(frequency_limit=n, time_limit=time_limit, overflow_msg=overflow_msg)
+
+     for _ in range(n + 1):
+         limit_logger.success("test")
+@@ -71,9 +66,7 @@ def test_limit_timestamps_full(writer):
+     time_limit = 1 / 6000  # minutes
+     overflow_msg = "overflow test"
+     logger.add(writer, format="{message}")
+-    limit_logger = logger.limit(
+-        frequency_limit=n, time_limit=time_limit, overflow_msg=overflow_msg
+-    )
++    limit_logger = logger.limit(frequency_limit=n, time_limit=time_limit, overflow_msg=overflow_msg)
+
+     for _ in range(2 * n):
+         limit_logger.error("test")
+@@ -92,9 +85,7 @@ def test_limit_timestamps_full(writer):
+
+ def test_limit_no_overflow_msg_provided(writer):
+     logger.add(writer, format="{message}")
+-    limit_logger = logger.limit(
+-        frequency_limit=1, time_limit=1
+-    )
++    limit_logger = logger.limit(frequency_limit=1, time_limit=1)
+     default_overflow_msg = "Overflow, future logs will be suppressed"
+     for _ in range(3):
+         limit_logger.debug("test")
+lint: exit 1 (1.54 seconds) /home/glacier/repos/loguru> pre-commit run --show-diff-on-failure --all-files pid=25473
+lint: FAIL ✖ in 2.7 seconds
+tests: install_package> python -I -m pip install --force-reinstall --no-deps /home/glacier/repos/loguru/.tox/.tmp/package/24/loguru-0.6.0.tar.gz
+tests: commands[0]> coverage erase
+tests: commands[1]> pytest --cov loguru/ --cov-report=
+============================================================================================== test session starts ==============================================================================================
+platform linux -- Python 3.9.12, pytest-7.2.1, pluggy-1.0.0
+cachedir: .tox/tests/.pytest_cache
+rootdir: /home/glacier/repos/loguru, configfile: tox.ini, testpaths: tests
+plugins: cov-4.0.0, mypy-plugins-1.10.1
+collected 1477 items
+
+tests/test_activation.py ..............................                                                                                                                                                   [  2%]
+tests/test_add_option_backtrace.py .                                                                                                                                                                      [  2%]
+tests/test_add_option_catch.py ...........                                                                                                                                                                [  2%]
+tests/test_add_option_colorize.py ....................ssssssssssss.................ss.....                                                                                                                [  6%]
+tests/test_add_option_diagnose.py .                                                                                                                                                                       [  6%]
+tests/test_add_option_enqueue.py ............s                                                                                                                                                            [  7%]
+tests/test_add_option_filter.py .......................................................                                                                                                                   [ 11%]
+tests/test_add_option_format.py ....................                                                                                                                                                      [ 12%]
+tests/test_add_option_kwargs.py .......                                                                                                                                                                   [ 13%]
+tests/test_add_option_level.py ..........                                                                                                                                                                 [ 13%]
+tests/test_add_option_serialize.py .........                                                                                                                                                              [ 14%]
+tests/test_add_sinks.py .......................................................                                                                                                                           [ 18%]
+tests/test_ansimarkup_basic.py ........................................................................................                                                                                   [ 24%]
+tests/test_ansimarkup_extended.py ............................................................................................                                                                            [ 30%]
+tests/test_bind.py .........                                                                                                                                                                              [ 30%]
+tests/test_configure.py ................                                                                                                                                                                  [ 32%]
+tests/test_contextualize.py ..............                                                                                                                                                                [ 32%]
+tests/test_coroutine_sink.py ...............................                                                                                                                                              [ 35%]
+tests/test_datetime.py ................................                                                                                                                                                   [ 37%]
+tests/test_deepcopy.py ....                                                                                                                                                                               [ 37%]
+tests/test_defaults.py .............                                                                                                                                                                      [ 38%]
+tests/test_exceptions_catch.py ..................................................                                                                                                                         [ 41%]
+tests/test_exceptions_formatting.py ............................................................................                                                                                          [ 46%]
+tests/test_filesink_compression.py ......................................................                                                                                                                 [ 50%]
+tests/test_filesink_delay.py ..........                                                                                                                                                                   [ 51%]
+tests/test_filesink_permissions.py ..........                                                                                                                                                             [ 51%]
+tests/test_filesink_retention.py .................................................                                                                                                                        [ 55%]
+tests/test_filesink_rotation.py .................................................................................sss.......................................                                               [ 63%]
+tests/test_filesink_watch.py ..............                                                                                                                                                               [ 64%]
+tests/test_formatting.py ...............................................................................                                                                                                  [ 69%]
+tests/test_get_frame.py ...                                                                                                                                                                               [ 70%]
+tests/test_interception.py ............                                                                                                                                                                   [ 70%]
+tests/test_levels.py ................................................                                                                                                                                     [ 74%]
+tests/test_limit.py .....                                                                                                                                                                                 [ 74%]
+tests/test_locks.py .....                                                                                                                                                                                 [ 74%]
+tests/test_multiprocessing.py ............................                                                                                                                                                [ 76%]
+tests/test_opt.py ......................................................................................................................................................                                  [ 86%]
+tests/test_parse.py .........................                                                                                                                                                             [ 88%]
+tests/test_patch.py ........                                                                                                                                                                              [ 89%]
+tests/test_pickling.py .....................................................                                                                                                                              [ 92%]
+tests/test_propagation.py ......                                                                                                                                                                          [ 93%]
+tests/test_recattr.py .........                                                                                                                                                                           [ 93%]
+tests/test_remove.py ...........                                                                                                                                                                          [ 94%]
+tests/test_repr.py ....................                                                                                                                                                                   [ 95%]
+tests/test_standard_handler.py ................                                                                                                                                                           [ 96%]
+tests/test_threading.py .....                                                                                                                                                                             [ 97%]
+tests/test_type_hinting.py .                                                                                                                                                                              [ 97%]
+tests/typesafety/test_logger.yml ........................................                                                                                                                                 [100%]
+
+================================================================================== 1459 passed, 18 skipped in 86.64s (0:01:26) ==================================================================================
+tests: commands[2]> coverage report -m
+Name                           Stmts   Miss  Cover   Missing
+------------------------------------------------------------
+loguru/__init__.py                11      0   100%
+loguru/_asyncio_loop.py           16      7    56%   15-22
+loguru/_better_exceptions.py     300      0   100%
+loguru/_colorama.py               37      7    81%   32, 44-49, 53-55
+loguru/_colorizer.py             262      0   100%
+loguru/_contextvars.py             9      1    89%   8
+loguru/_ctime_functions.py        38     16    58%   6-20, 24-30
+loguru/_datetime.py               44      0   100%
+loguru/_defaults.py               49      0   100%
+loguru/_error_interceptor.py      26      0   100%
+loguru/_file_sink.py             299      0   100%
+loguru/_filters.py                18      0   100%
+loguru/_get_frame.py              16      0   100%
+loguru/_handler.py               215      0   100%
+loguru/_locks_machinery.py        29      4    86%   7-11
+loguru/_logger.py                541      4    99%   106, 805, 1437-1438
+loguru/_recattrs.py               48      0   100%
+loguru/_simple_sinks.py           83      0   100%
+loguru/_string_parsers.py        109      0   100%
+------------------------------------------------------------
+TOTAL                           2150     39    98%
+tests: commands[3]> coverage xml
+Wrote XML report to coverage.xml
+tests: OK ✔ in 1 minute 28.43 seconds
+docs: install_package> python -I -m pip install --force-reinstall --no-deps /home/glacier/repos/loguru/.tox/.tmp/package/25/loguru-0.6.0.tar.gz
+docs: commands[0]> sphinx-build -a -b html -W --keep-going docs/ docs/build
+Running Sphinx v5.3.0
+loading translations [English]... not available for built-in messages
+loading pickled environment... done
+building [mo]: all of 0 po files
+building [html]: all source files
+updating environment: 0 added, 0 changed, 0 removed
+looking for now-outdated files... none found
+preparing documents... done
+writing output... [100%] resources/recipes
+generating indices... genindex py-modindex done
+highlighting module code... [100%] loguru._logger
+writing additional pages... search done
+copying static files... done
+copying extra files... done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded.
+
+The HTML pages are in docs/build.
+.pkg: _exit> python /home/glacier/repos/loguru/venv/lib/python3.9/site-packages/pyproject_api/_backend.py True setuptools.build_meta __legacy__
+  lint: FAIL code 1 (2.70=setup[1.16]+cmd[1.54] seconds)
+  tests: OK (88.43=setup[0.84]+cmd[0.07,87.14,0.17,0.21] seconds)
+  docs: OK (1.95=setup[0.89]+cmd[1.07] seconds)
+  evaluation failed :( (93.14 seconds)

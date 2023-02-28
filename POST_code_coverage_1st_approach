@@ -1,0 +1,72 @@
+Name                                  Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------
+loguru/__init__.py                       11      0   100%
+loguru/_asyncio_loop.py                  16      7    56%   15-22
+loguru/_better_exceptions.py            300     81    73%   36-81, 201, 209, 259-261, 268, 288, 291-292, 299-300, 322, 329-336, 359-369, 376-386, 401-407, 411-413, 431
+loguru/_colorama.py                      37      7    81%   32, 44-49, 53-55
+loguru/_colorizer.py                    262      0   100%
+loguru/_contextvars.py                    9      1    89%   8
+loguru/_ctime_functions.py               38     28    26%   6-20, 32-54
+loguru/_datetime.py                      44      0   100%
+loguru/_defaults.py                      49      0   100%
+loguru/_error_interceptor.py             26      0   100%
+loguru/_file_sink.py                    299      0   100%
+loguru/_filters.py                       18      0   100%
+loguru/_get_frame.py                     16      0   100%
+loguru/_handler.py                      215      2    99%   208, 227
+loguru/_locks_machinery.py               29      4    86%   7-11
+loguru/_logger.py                       541      4    99%   106, 805, 1437-1438
+loguru/_recattrs.py                      48      0   100%
+loguru/_simple_sinks.py                  83      0   100%
+loguru/_string_parsers.py               109      0   100%
+tests/__init__.py                         0      0   100%
+tests/conftest.py                       177     23    87%   22-30, 33-40, 44-46, 79-80, 101, 178, 216
+tests/test_activation.py                101      0   100%
+tests/test_add_option_backtrace.py       17      0   100%
+tests/test_add_option_catch.py           99      0   100%
+tests/test_add_option_colorize.py       163     18    89%   107-126, 223-226
+tests/test_add_option_diagnose.py        17      0   100%
+tests/test_add_option_enqueue.py        188     14    93%   18, 249-267
+tests/test_add_option_filter.py          43      0   100%
+tests/test_add_option_format.py          55      0   100%
+tests/test_add_option_kwargs.py          44      3    93%   35, 47, 62
+tests/test_add_option_level.py           20      0   100%
+tests/test_add_option_serialize.py       88      0   100%
+tests/test_add_sinks.py                 177      0   100%
+tests/test_ansimarkup_basic.py           51      0   100%
+tests/test_ansimarkup_extended.py        50      0   100%
+tests/test_bind.py                       54      0   100%
+tests/test_configure.py                 111      0   100%
+tests/test_contextualize.py             134      0   100%
+tests/test_coroutine_sink.py            411      6    99%   570-571, 575-576, 580-581
+tests/test_datetime.py                   45      1    98%   11
+tests/test_deepcopy.py                   38      0   100%
+tests/test_defaults.py                   33      0   100%
+tests/test_exceptions_catch.py          289      0   100%
+tests/test_exceptions_formatting.py      70     11    84%   13-16, 42-45, 64, 82-85
+tests/test_filesink_compression.py      154      0   100%
+tests/test_filesink_delay.py             66      0   100%
+tests/test_filesink_permissions.py       31      0   100%
+tests/test_filesink_retention.py        184      0   100%
+tests/test_filesink_rotation.py         448     98    78%   623-654, 666-689, 701-724, 729-746, 752-768
+tests/test_filesink_watch.py            102      0   100%
+tests/test_formatting.py                108      0   100%
+tests/test_get_frame.py                  21      0   100%
+tests/test_interception.py              104      0   100%
+tests/test_levels.py                    154      0   100%
+tests/test_limit.py                      64      0   100%
+tests/test_locks.py                      69      0   100%
+tests/test_multiprocessing.py           408     31    92%   34, 39, 43, 47, 51-53, 57-59, 63-68, 72-77, 81-84, 88-91, 555, 606-607
+tests/test_opt.py                       379      0   100%
+tests/test_parse.py                     102      0   100%
+tests/test_patch.py                      54      0   100%
+tests/test_pickling.py                  232      2    99%   79, 135
+tests/test_propagation.py                64      0   100%
+tests/test_recattr.py                    50      0   100%
+tests/test_remove.py                     74      0   100%
+tests/test_repr.py                      122     12    90%   48, 51, 60, 75, 86, 95, 109, 120, 129, 145, 161-162
+tests/test_standard_handler.py          133      0   100%
+tests/test_threading.py                 114      1    99%   16
+tests/test_type_hinting.py                4      0   100%
+-------------------------------------------------------------------
+TOTAL                                  7866    354    95%
